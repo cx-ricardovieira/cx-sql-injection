@@ -22,4 +22,4 @@ jobs:
           checkmarx_password: ${{ secrets.CHECKMARX_PASSWORD }}
           checkmarx_client_secret: ${{ secrets.CHECKMARX_CLIENT_SECRET }}
           scanners: sast
-          params: --cx-flow.bug-tracker=NONE --checkmarx.exclude-files=\"README\.md,*Test\.java\" --checkmarx.exclude-folders=\"docs,tests\" --checkmarx.configuration=\"Improved Scan Flow\" --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ github.ref }} -logging.level.com.checkmarx.flow=debug --logging.level.com.checkmarx.sdk.service=debug
+          params: --cx-flow.bug-tracker=NONE --checkmarx.exclude-files=README.md,*Test.java --checkmarx.exclude-folders=docs,tests --checkmarx.configuration=Improved Scan Flow --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ github.ref }} -logging.level.com.checkmarx.flow=debug --logging.level.com.checkmarx.sdk.service=debug
