@@ -16,6 +16,7 @@ jobs:
           project: ${{ github.event.repository.name }}
           team: /CxServer/Checkmarx/GitHub Actions
           preset: ASA-Premium
+          incremental: false
           checkmarx_url: ${{ secrets.CHECKMARX_URL }}
           checkmarx_username: ${{ secrets.CHECKMARX_USER }}
           checkmarx_password: ${{ secrets.CHECKMARX_PASSWORD }}
