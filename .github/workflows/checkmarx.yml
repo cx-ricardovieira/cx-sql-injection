@@ -12,13 +12,13 @@ jobs:
         uses: actions/checkout@v2
       - name: Checkmarx CxSAST Scan
         uses: checkmarx-ts/checkmarx-cxflow-github-action@v1.2
-        with: 
-          project: ${{ github.event.repository.name }}-${{ github.head_ref }}
+        with:
+          project: ${{ github.event.repository.name }}
           team: /CxServer/Checkmarx/GitHub Actions
-          checkmarx_url: ${{ secrets.CHECKMARX_URL }} # To be stored in GitHub Secrets.
-          checkmarx_username: ${{ secrets.CHECKMARX_USER }} # To be stored in GitHub Secrets.
-          checkmarx_password: ${{ secrets.CHECKMARX_PASSWORD }} # To be stored in GitHub Secrets.
-          checkmarx_client_secret: ${{ secrets.CHECKMARX_CLIENT_SECRET }} # To be stored in GitHub Secrets.
-          break_build: false
+          preset: ASA-Premium
+          checkmarx_url: ${{ secrets.CHECKMARX_URL }}
+          checkmarx_username: ${{ secrets.CHECKMARX_USER }}
+          checkmarx_password: ${{ secrets.CHECKMARX_PASSWORD }}
+          checkmarx_client_secret: ${{ secrets.CHECKMARX_CLIENT_SECRET }}
           scanners: sast
           params: --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ github.ref }}
