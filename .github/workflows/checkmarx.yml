@@ -1,6 +1,8 @@
 name: Checkmarx SAST Scan
 on:
   push:
+    branches:
+      - main
 
 jobs:
   checkmarx-sast-scan:
