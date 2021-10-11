@@ -13,7 +13,7 @@ jobs:
       - name: Checkmarx CxSAST Scan
         uses: checkmarx-ts/checkmarx-cxflow-github-action@v1.2
         with: 
-          project: ${{ github.event.repository.name }}-${{ github.ref }}
+          project: ${{ github.event.repository.name }}-${GITHUB_REF##*/}
           team: /CxServer/Checkmarx/GitHub Actions
           checkmarx_url: ${{ secrets.CHECKMARX_URL }} # To be stored in GitHub Secrets.
           checkmarx_username: ${{ secrets.CHECKMARX_USER }} # To be stored in GitHub Secrets.
