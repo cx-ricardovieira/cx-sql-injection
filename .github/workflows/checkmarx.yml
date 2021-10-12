@@ -15,11 +15,10 @@ jobs:
         with:
           project: ${{ github.event.repository.name }}
           team: /CxServer/Checkmarx/GitHub Actions
-          preset: ASA-Premium
           incremental: false
           checkmarx_url: ${{ secrets.CHECKMARX_URL }}
           checkmarx_username: ${{ secrets.CHECKMARX_USER }}
           checkmarx_password: ${{ secrets.CHECKMARX_PASSWORD }}
           checkmarx_client_secret: ${{ secrets.CHECKMARX_CLIENT_SECRET }}
           scanners: sast
-          params: --cx-flow.bug-tracker=NONE --checkmarx.exclude-files=*min.js,*Test.java --checkmarx.exclude-folders=docs,test --checkmarx.settings-override=true --checkmarx.configuration=6 --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ github.ref }} -logging.level.com.checkmarx.flow=debug --logging.level.com.checkmarx.sdk.service=debug
+          params: --cx-flow.bug-tracker=NONE --checkmarx.exclude-files=*min.js,*Test.java --checkmarx.exclude-folders=docs,test --checkmarx.settings-override=true --checkmarx.scan-preset=ASA-Premium --checkmarx.configuration=6 --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ github.ref }} -logging.level.com.checkmarx.flow=debug --logging.level.com.checkmarx.sdk.service=debug
