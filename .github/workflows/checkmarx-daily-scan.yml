@@ -1,0 +1,26 @@
+name: Checkmarx SAST Scan
+on:
+  schedule: '0/1 0/5 0 ? * * *'
+  #schedule: '0/1 0 0 ? * * *'
+    branches:
+      - main
+
+jobs:
+  checkmarx-sast-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Checkmarx CxSAST Scan
+        uses: checkmarx-ts/checkmarx-cxflow-github-action@v1.3
+        with:
+          project: ${{ github.event.repository.name }}
+          team: /CxServer/Checkmarx/GitHub Actions
+          preset: Checkmarx Express
+          incremental: false
+          checkmarx_url: ${{ secrets.CHECKMARX_URL }}
+          checkmarx_username: ${{ secrets.CHECKMARX_USER }}
+          checkmarx_password: ${{ secrets.CHECKMARX_PASSWORD }}
+          checkmarx_client_secret: ${{ secrets.CHECKMARX_CLIENT_SECRET }}
+          scanners: sast
+          params: --cx-flow.bug-tracker=NONE --checkmarx.exclude-files=*min.js,*Test.java --checkmarx.exclude-folders=docs,test,tests --checkmarx.settings-override=true --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ github.ref }} -logging.level.com.checkmarx.flow=debug --logging.level.com.checkmarx.sdk.service=debug
