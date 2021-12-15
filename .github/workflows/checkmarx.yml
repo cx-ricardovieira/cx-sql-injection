@@ -11,12 +11,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Checkmarx CxSAST Scan
-        uses: checkmarx-ts/checkmarx-cxflow-github-action@v1.2
+        uses: checkmarx-ts/checkmarx-cxflow-github-action@v1.3
         with:
           project: ${{ github.event.repository.name }}
           team: /CxServer/Checkmarx/GitHub Actions
           preset: Checkmarx Express
-          incremental: false
+          incremental: true
           checkmarx_url: ${{ secrets.CHECKMARX_URL }}
           checkmarx_username: ${{ secrets.CHECKMARX_USER }}
           checkmarx_password: ${{ secrets.CHECKMARX_PASSWORD }}
