@@ -1,16 +1,23 @@
 name: Checkmarx SAST - Daily Scan
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    # cron: '*/10 * * * *'
     # Every day at noon
-    #- cron:  '0 12 * * *'
+    - cron:  '0 12 * * *'
 
 jobs:
   checkmarx-sast-scan:
     runs-on: ubuntu-latest
     steps:
+      - name: Dump github context
+        run:   echo "$GITHUB_CONTEXT"
+        shell: bash
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: main
       - name: Checkmarx CxSAST Scan
         uses: checkmarx-ts/checkmarx-cxflow-github-action@v1.3
         with:
@@ -23,4 +30,4 @@ jobs:
           checkmarx_password: ${{ secrets.CHECKMARX_PASSWORD }}
           checkmarx_client_secret: ${{ secrets.CHECKMARX_CLIENT_SECRET }}
           scanners: sast
-          params: --cx-flow.bug-tracker=NONE --checkmarx.exclude-files=*min.js,*Test.java --checkmarx.exclude-folders=docs,test,tests --checkmarx.settings-override=true --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ github.ref }} -logging.level.com.checkmarx.flow=debug --logging.level.com.checkmarx.sdk.service=debug
+          params: --cx-flow.bug-tracker=NONE --checkmarx.exclude-files=*min.js,*Test.java --checkmarx.exclude-folders=docs,test,tests --checkmarx.settings-override=true --namespace=${{ github.repository_owner }} --repo-name=${{ github.repository.name }} --branch=${{ github.ref }} -logging.level.com.checkmarx.flow=debug --logging.level.com.checkmarx.sdk.service=debug
