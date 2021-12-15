@@ -1,7 +1,7 @@
 name: Checkmarx SAST - Daily Scan
 on:
   schedule:
-    - cron: '15 * * * *'
+    - cron: '*/10 * * * *'
     # Every day at noon
     #- cron:  '0 12 * * *'
 
