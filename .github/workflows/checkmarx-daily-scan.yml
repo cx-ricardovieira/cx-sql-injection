@@ -1,4 +1,4 @@
-name: Checkmarx SAST Scan
+name: Checkmarx SAST - Daily Scan
 on:
   schedule:
     - cron:  '5 * * * *'
