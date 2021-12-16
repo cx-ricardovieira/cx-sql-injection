@@ -12,11 +12,11 @@ jobs:
         uses: actions/checkout@v2
       - name: "Set Checkmarx Project Configuration"
         env:
-          cx-sast-project-configuration: 'Improved Scan Flow'
-          cx-sast-project-exclude-files: '*min.js,*Test.java'
-          cx-sast-project-exclude-folders: 'docs,test,tests'
-          cx-sast-project-preset: 'Checkmarx Express'
-          cx-sast-project-team: '/CxServer/Checkmarx/GitHub Actions'
+          cx-sast-project-configuration: Improved Scan Flow
+          cx-sast-project-exclude-files: "*min.js,*Test.java"
+          cx-sast-project-exclude-folders: docs,test,tests
+          cx-sast-project-preset: Checkmarx Express
+          cx-sast-project-team: /CxServer/Checkmarx/GitHub Actions
         run: echo "The variables have been defined."
       - name: Checkmarx CxSAST Scan
         uses: checkmarx-ts/checkmarx-cxflow-github-action@v1.3
