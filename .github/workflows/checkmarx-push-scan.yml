@@ -17,6 +17,7 @@ jobs:
           cx-sast-project-exclude-folders: 'docs,test,tests'
           cx-sast-project-preset: 'Checkmarx Express'
           cx-sast-project-team: '/CxServer/Checkmarx/GitHub Actions'
+        run: echo "The variables have been defined."
       - name: Checkmarx CxSAST Scan
         uses: checkmarx-ts/checkmarx-cxflow-github-action@v1.3
         with:
