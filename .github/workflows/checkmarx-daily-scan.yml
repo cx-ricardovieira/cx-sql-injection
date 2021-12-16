@@ -1,7 +1,7 @@
 name: Checkmarx SAST - Daily Scan
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/10 * * * *'
     # Every day at noon
     #- cron:  '0 12 * * *'
 
@@ -9,11 +9,6 @@ jobs:
   checkmarx-sast-scan:
     runs-on: ubuntu-latest
     steps:
-      - name: Dump github context
-        run:   echo "$GITHUB_CONTEXT"
-        shell: bash
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -21,7 +16,7 @@ jobs:
       - name: Checkmarx CxSAST Scan
         uses: checkmarx-ts/checkmarx-cxflow-github-action@v1.3
         with:
-          project: ${{ github.event.repository.name }}
+          project: ${{ github.repository.name }}-${{ github.ref_name }}
           team: /CxServer/Checkmarx/GitHub Actions
           preset: Checkmarx Express
           incremental: false
