@@ -14,8 +14,7 @@ jobs:
         env:
           cx-project-configuration: 'Improved Scan Flow'
           cx-project-exclude-files: '*min.js,*Test.java'
-          cx-project-exclude-folders: 'docs,test,tests'
-          
+          cx-project-exclude-folders: 'docs,test,tests'          
         uses: checkmarx-ts/checkmarx-cxflow-github-action@v1.3
         with:
           project: ${{ github.event.repository.name }}-${{ github.ref_name }}
