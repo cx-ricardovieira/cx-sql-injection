@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get Repo Name
-        run: echo ::set-env name=repo_name::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' | sed -e "s/:refs//")
+        run: echo ::set-env name=repo_name::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')
         shell: bash       
       - name: Checkout
         uses: actions/checkout@v2
