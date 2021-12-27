@@ -7,11 +7,9 @@ jobs:
   checkmarx-sast-scan:
     runs-on: ubuntu-latest
     steps:
-      - name: Dump github context
-        run:   echo "$GITHUB_CONTEXT"
-        shell: bash
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
+      - name: Get Repo Name
+        run: echo ::set-env name=repo_name::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' | sed -e "s/:refs//")
+        shell: bash       
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -19,7 +17,7 @@ jobs:
       - name: Checkmarx CxSAST Scan
         uses: checkmarx-ts/checkmarx-cxflow-github-action@v1.3
         with:
-          project: ${{ github.repository.name }}-${{ github.ref_name }}
+          project: ${{ repo_name }}-${{ github.ref_name }}
           team: /CxServer/Checkmarx/GitHub Actions
           preset: Checkmarx Express
           incremental: false
