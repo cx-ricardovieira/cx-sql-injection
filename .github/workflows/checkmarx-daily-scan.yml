@@ -1,7 +1,14 @@
 name: Checkmarx SAST - Daily Scan
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron:  '0 12 * * *'
+
+env:
+  cx-sast-project-configuration: 'Improved Scan Flow'
+  cx-sast-project-exclude-files: '*min.js,*Test.java'
+  cx-sast-project-exclude-folders: 'docs,test,tests'
+  cx-sast-project-preset: 'Checkmarx Express'
+  cx-sast-project-team: '/CxServer/Checkmarx/GitHub Actions'
 
 jobs:
   checkmarx-sast-scan:
@@ -10,7 +17,7 @@ jobs:
       - name: Get Repo Name
         run: echo "repo_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
         shell: bash       
-      - name: Checkout
+      - name: Checkout Source Code
         uses: actions/checkout@v2
         with:
           ref: main
@@ -18,12 +25,12 @@ jobs:
         uses: checkmarx-ts/checkmarx-cxflow-github-action@v1.3
         with:
           project: ${{ env.repo_name }}-${{ github.ref_name }}
-          team: /CxServer/Checkmarx/GitHub Actions
-          preset: Checkmarx Express
+          team: ${{ env.cx-sast-project-team }}
+          preset: ${{ env.cx-sast-project-preset }}
           incremental: false
           checkmarx_url: ${{ secrets.CHECKMARX_URL }}
           checkmarx_username: ${{ secrets.CHECKMARX_USER }}
           checkmarx_password: ${{ secrets.CHECKMARX_PASSWORD }}
           checkmarx_client_secret: ${{ secrets.CHECKMARX_CLIENT_SECRET }}
           scanners: sast
-          params: --cx-flow.bug-tracker=NONE --checkmarx.exclude-files=*min.js,*Test.java --checkmarx.exclude-folders=docs,test,tests --checkmarx.settings-override=true --namespace=${{ github.repository_owner }} --repo-name=${{ github.repository.name }} --branch=${{ github.ref }} -logging.level.com.checkmarx.flow=debug --logging.level.com.checkmarx.sdk.service=debug
+          params: --cx-flow.bug-tracker=NONE --checkmarx.configuration=${{ env.cx-sast-project-configuration }} --checkmarx.exclude-files=${{ env.cx-sast-project-exclude-files }} --checkmarx.exclude-folders=${{ env.cx-sast-project-exclude-folders }} --checkmarx.settings-override=true --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ github.ref }} -logging.level.com.checkmarx.flow=debug --logging.level.com.checkmarx.sdk.service=debug
