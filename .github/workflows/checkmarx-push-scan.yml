@@ -23,12 +23,12 @@ jobs:
         with:
           project: ${{ github.event.repository.name }}-${{ github.ref_name }}
           bug_tracker: NONE
-          team: ${{ env.cx-sast-project-team }}
-          preset: ${{ env.cx-sast-project-preset }}
+          team: ${{ cx-sast-project-team }}
+          preset: ${{ cx-sast-project-preset }}
           incremental: false
           checkmarx_url: ${{ secrets.CHECKMARX_URL }}
           checkmarx_username: ${{ secrets.CHECKMARX_USER }}
           checkmarx_password: ${{ secrets.CHECKMARX_PASSWORD }}
           checkmarx_client_secret: ${{ secrets.CHECKMARX_CLIENT_SECRET }}
           scanners: sast
-          params: --checkmarx.configuration=${{ env.cx-sast-project-configuration }} --checkmarx.exclude-files=${{ env.cx-sast-project-exclude-files }} --checkmarx.exclude-folders=${{ env.cx-sast-project-exclude-folders }} --checkmarx.settings-override=true --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ github.ref }} -logging.level.com.checkmarx.flow=debug --logging.level.com.checkmarx.sdk.service=debug
+          params: --checkmarx.configuration=${{ cx-sast-project-configuration }} --checkmarx.exclude-files=${{ cx-sast-project-exclude-files }} --checkmarx.exclude-folders=${{ cx-sast-project-exclude-folders }} --checkmarx.settings-override=true --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ github.ref }} -logging.level.com.checkmarx.flow=debug --logging.level.com.checkmarx.sdk.service=debug
