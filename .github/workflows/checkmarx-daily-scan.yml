@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get Repo Name
-        run: echo ::set-env name=repo_name::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')
+        run: echo "repo_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
         shell: bash       
       - name: Checkout
         uses: actions/checkout@v2
@@ -17,7 +17,7 @@ jobs:
       - name: Checkmarx CxSAST Scan
         uses: checkmarx-ts/checkmarx-cxflow-github-action@v1.3
         with:
-          project: ${{ repo_name }}-${{ github.ref_name }}
+          project: ${{ env.repo_name }}-${{ github.ref_name }}
           team: /CxServer/Checkmarx/GitHub Actions
           preset: Checkmarx Express
           incremental: false
