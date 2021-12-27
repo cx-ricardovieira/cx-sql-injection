@@ -25,7 +25,7 @@ jobs:
           bug_tracker: NONE
           team: ${{ env.cx-sast-project-team }}
           preset: ${{ env.cx-sast-project-preset }}
-          incremental: true
+          incremental: false
           checkmarx_url: ${{ secrets.CHECKMARX_URL }}
           checkmarx_username: ${{ secrets.CHECKMARX_USER }}
           checkmarx_password: ${{ secrets.CHECKMARX_PASSWORD }}
