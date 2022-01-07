@@ -11,14 +11,14 @@ public class Main {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
-    String query = "select username from users where location = " + args[0] + ";";
-    //String query = "select username from users where location = ?";
+    //String query = "select username from users where location = " + args[0] + ";";
+    String query = "select username from users where location = ?";
 
     try {
 
       connection = DriverManager.getConnection(JDBC_URL, DB_SCHEMA, DB_PASSWORD);
       preparedStatement = connection.prepareStatement(query);
-      //preparedStatement.setString(1, args[0]);
+      preparedStatement.setString(1, args[0]);
       resultSet = preparedStatement.executeQuery();
 
       while (resultSet.next()) {
